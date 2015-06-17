@@ -6,10 +6,10 @@ with open(sys.argv[1]) as fh:
     gdict = json.load(fh)
 
 supergroups = {
-    'Indica': 'Indica',
-    'Japoinca': 'Japonica',
-    'Temperate Japonica': 'Japonica',
-    'Tropical Japonica': 'Japoinca',
+    'Indica':               'Indica',
+    'Japoinca':             'Japonica',
+    'Temperate Japonica':   'Japonica',
+    'Tropical Japonica':    'Japonica',
 }
 
 grouped_samples = {}
@@ -44,6 +44,9 @@ def make_file(fname):
             for sample, runs in samples.items():
                 for run in sorted(runs):
                     print >> ofh, run
+                print >> ofh, ''
+            print >> ofh, ''
+            print >> ofh, ''
 
 for x in range(int(sys.argv[2])):
     fname = '96s/96-2groups-{:02d}.txt'.format(x)
