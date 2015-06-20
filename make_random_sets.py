@@ -30,14 +30,14 @@ def make_file(fname):
         for grp in set(supergroups.values()):
             runs = []
             sample_name = ''
+            if grp not in samples:
+                samples[grp] = {}
             while len(runs) != 6:
                 sample_name = random.choice(grouped_samples[grp].keys())
+                if sample_name in samples[grp]:
+                    continue
                 runs = grouped_samples[grp][sample_name]
-
-            try:
-                samples[grp][sample_name] = runs
-            except KeyError:
-                samples[grp] = {sample_name: runs}
+            samples[grp][sample_name] = runs
 
     with open(fname, 'w') as ofh:
         for group, samples in sorted(samples.items()):
@@ -47,9 +47,9 @@ def make_file(fname):
                 print >> ofh, ''
             print >> ofh, ''
             print >> ofh, ''
+    with open(fname + '.json', 'w') as jfh:
+        json.dump(samples, jfh, indent=1)
 
 for x in range(int(sys.argv[2])):
-    fname = '96s/96-2groups-{:02d}.txt'.format(x)
+    fname = '{}-{:02d}.txt'.format(sys.argv[3], x)
     make_file(fname)
-
-
