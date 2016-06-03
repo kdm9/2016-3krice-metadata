@@ -2,6 +2,8 @@ import csv
 import json
 from collections import defaultdict
 
+import pandas as pd
+
 
 def parse_attribute(line):
     sa = line['sample_attribute']
@@ -31,6 +33,10 @@ def load_csv(csvpath):
             }
             runs.append(run)
     return runs
+
+
+def load_pd(csvpath):
+    pd.DataFrame(load_csv(csvpath))
 
 
 def runs_groupby(runs, by='sra_sample'):
