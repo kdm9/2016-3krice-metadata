@@ -1,6 +1,6 @@
 import csv
 import json
-import pandas as pd
+from collections import defaultdict
 
 
 def parse_attribute(line):
@@ -26,12 +26,15 @@ def load_csv(csvpath):
                 'taxid': line['taxon_id'],
                 'run_date': line['run_date'],
                 'sra_id': line['run'],
-                'num_reads': line['spots'],
-                'num_bases': line['bases'],
+                'num_reads': int(line['spots']),
+                'num_bases': int(line['bases']),
             }
             runs.append(run)
     return runs
 
 
-def load_pd(csvpath):
-    return pd.read_json(json.dumps(load_csv(csvpath)))
+def runs_groupby(runs, by='sra_sample'):
+    groups = defaultdict(list)
+    for run in runs:
+        groups[run[by]].append(run)
+    return groups
