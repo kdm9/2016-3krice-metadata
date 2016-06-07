@@ -2,7 +2,13 @@ import csv
 import json
 from collections import defaultdict
 
+import numpy as np
 import pandas as pd
+from scipy import stats
+
+
+def zfilter(df, by, zscore):
+    return df.iloc[np.abs(stats.zscore(df[by])) < zscore]
 
 
 def parse_attribute(line):
