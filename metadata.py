@@ -42,7 +42,7 @@ def load_csv(csvpath):
 
 
 def load_pd(csvpath):
-    pd.DataFrame(load_csv(csvpath))
+    return pd.DataFrame(load_csv(csvpath))
 
 
 def runs_groupby(runs, by='sra_sample'):
